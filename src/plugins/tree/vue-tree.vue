@@ -18,6 +18,7 @@
     :props="props"
     :filter-node-method="filterNode"
     :check-strictly="checkStrictly"
+    @check-change="checkChange"
     @node-click="nodeClick">
     <span slot-scope="{ node, data }">
       <span class="node-label" :class="{'is-disabled':node.disabled} ">{{ node.label }}</span>
@@ -30,11 +31,8 @@
   </el-tree>
 </template>
 <script>
-import { Tree } from 'element-ui'
-import Vue from 'vue'
-Vue.use(Tree)
 export default {
-  name: 'ZTree',
+  name: 'Tree',
   props: {
     className: {
       type: String,
@@ -127,7 +125,6 @@ export default {
     if (this.onlyChild) {
       this.treeData = this.onlyChildNode(this.treeData)
     }
-    console.log(this.treeData)
   },
   methods: {
     onlyChildNode (arr) {
@@ -135,7 +132,6 @@ export default {
       for (let i = 0; i < arr.length; i++) {
         const opt = arr[i]
         if (opt[children] && opt[children].length > 0) {
-          // eslint-disable-next-line no-prototype-builtins
           if (!opt.hasOwnProperty('disabled')) {
             this.$set(opt, 'disabled', true)
           }
@@ -184,12 +180,16 @@ export default {
     // 获取当前被选中节点的 data，若没有节点被选中则返回 null
     getCurrentNode () {
       return this.$refs.tree.getCurrentNode()
+    },
+    // 获取复选框选中状态变更的节点
+    checkChange (checkData, isChecked, childCheck) {
+      this.$emit('checkChange', checkData, isChecked, childCheck)
     }
   }
 }
 </script>
 <style lang="scss" scoped>
-@import './variables.scss';
+@import '@/styles/variables.scss';
 
 .tree {
   .node-label {

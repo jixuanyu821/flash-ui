@@ -7,31 +7,35 @@
       <el-button slot="append" icon="el-icon-search" @click="filterTree" />
       <!-- <el-button slot="suffix" style="border:none;" size="mini" icon="el-icon-search" @click="filterTree" /> -->
     </el-input>
-    <z-tree
+    <tree
       ref="tree"
       :lazy="lazy"
       :only-child="onlyChild"
       :class-name="'z-select-tree'"
       :load="loadNode"
+      :show-checkbox="showCheckbox"
       :props="props"
+      :check-on-click-node="multiple"
       :tree-data="treeDatas"
+      @checkChange="checkChange"
       @nodeClick="nodeClick" />
-    <el-input slot="reference" v-model="valueName" clearable :suffix-icon="visible?'el-icon-arrow-up':'el-icon-arrow-down'" @clear="clearValue" />
+    <el-input v-if="!showCheckbox" slot="reference" v-model="valueName" clearable :suffix-icon="visible?'el-icon-arrow-up':'el-icon-arrow-down'" @clear="clearValue" />
+    <div v-else slot="reference" class="el-input">
+      <div class="el-input__inner">
+        <el-tag v-for="(item, index) in valueNameArr" :key="index" size="small" type="info">{{ item[props.value?props.value:props.label] }}</el-tag>
+      </div>
+    </div>
   </el-popover>
 </template>
 <script>
-import ZTree from '../tree/vue-tree'
-import { Input, Tree, Popover, Button } from 'element-ui'
-import Vue from 'vue'
-Vue.use(Tree)
-Vue.use(Input)
-Vue.use(Popover)
-Vue.use(Button)
+import Tree from '@/components/Tree'
+import TreeFilter from '@/mixins/TreeFilter'
+
 export default {
-  name: 'ZSelectTree',
   components: {
-    ZTree
+    Tree
   },
+  mixins: [TreeFilter],
   model: {
     prop: 'value',
     event: 'valueChange'
@@ -46,6 +50,18 @@ export default {
       default () {
         return []
       }
+    },
+    showCheckbox: {
+      type: Boolean,
+      default: false
+    },
+    multiple: {
+      type: Boolean,
+      default: false
+    },
+    collapseTags: {
+      type: Boolean,
+      default: false
     },
     lazy: {
       type: Boolean,
@@ -76,7 +92,7 @@ export default {
     },
     value: { // 组件id
       default: '',
-      type: String
+      type: String || Array
     },
     onlyChild: { // 是否开启只能选择子节点模式
       type: Boolean,
@@ -89,8 +105,20 @@ export default {
       filterTxt: '',
       treeDatas: [],
       selectNode: {},
-      valueName: ''
+      // valueId: this.value,
+      valueName: '',
+      valueNameArr: []
     }
+  },
+  computed: {
+    // valueId: function () {
+    //   const keywordId = this.props.id ? this.props.id : this.props.label
+    //   return this.selectNode[keywordId] || ''
+    // },
+    // valueName: function () {
+    //   const keywordValue = this.props.value ? this.props.value : this.props.label
+    //   return this.selectNode[keywordValue] || ''
+    // }
   },
   watch: {
     treeData (val) {
@@ -99,9 +127,6 @@ export default {
       } else {
         this.treeDatas = val
       }
-    },
-    filterText (val) {
-      this.$refs.tree.filter(val)
     }
   },
   created () {
@@ -121,8 +146,8 @@ export default {
       const keywordValue = this.props.value ? this.props.value : this.props.label
       const keywordId = this.props.id ? this.props.id : this.props.label
       this.value = data[keywordId]
-      this.$emit('valueChange', data[keywordId])
       this.valueName = data[keywordValue]
+      this.$emit('valueChange', data[keywordId])
       this.$emit('getValueName', data[keywordValue])
     },
     clearValue () {
@@ -134,11 +159,32 @@ export default {
       for (let i = 0; i < arr.length; i++) {
         const dataObj = arr[i]
         dataObj[opt.value] = parentName + (isFirst ? '' : this.breakKey) + dataObj[opt.label]
+        // Object.assign(dataObj, { [opt.value]: parentName + (isFirst ? '' : '-') + dataObj[opt.label] })
         if (dataObj[opt.children] && dataObj[opt.children].length > 0) {
           dataObj[opt.children] = this.formateTree(dataObj[opt.value], dataObj[opt.children], opt)
         }
       }
       return arr
+    },
+    getCheckedNodes () {
+      return this.$refs.tree.getCheckedNode()
+    },
+    checkChange (checkData, isChecked, childCheck) {
+      console.log(checkData, isChecked, childCheck)
+      const keywordValue = this.props.value ? this.props.value : this.props.label
+      const keywordId = this.props.id ? this.props.id : this.props.label
+      if (isChecked) {
+        this.valueNameArr.push(checkData)
+        if (typeof this.value === 'string') {
+          const value = [checkData[keywordId]]
+          this.$emit('valueChange', value)
+        }
+        this.$emit('getValueName', this.valueNameArr.map(val => val[keywordValue]))
+      } else {
+        // let index = 0
+        // for(let i =0;i<)
+        // this.valueNameArr
+      }
     }
   }
 }
@@ -148,6 +194,7 @@ export default {
   .el-tree.z-select-tree{
     margin-top: 8px;
     min-height: 200px;
+
   }
 }
 </style>
