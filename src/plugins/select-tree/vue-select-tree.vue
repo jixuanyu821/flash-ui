@@ -8,7 +8,7 @@
       <!-- <el-button slot="suffix" style="border:none;" size="mini" icon="el-icon-search" @click="filterTree" /> -->
     </el-input>
     <el-scrollbar>
-      <tree
+      <z-tree
         ref="tree"
         :lazy="lazy"
         :only-child="onlyChild"
@@ -35,14 +35,20 @@
   </el-popover>
 </template>
 <script>
-import Tree from '@/components/Tree'
-import TreeFilter from '@/mixins/TreeFilter'
+import ZTree from '../tree/vue-tree'
+import { Input, Tree, Popover, Button,Scrollbar } from 'element-ui'
+import Vue from 'vue'
+Vue.use(Tree)
+Vue.use(Input)
+Vue.use(Popover)
+Vue.use(Button)
+Vue.use(Scrollbar)
 
 export default {
+  name: 'ZSelectTree',
   components: {
-    Tree
+    ZTree
   },
-  mixins: [TreeFilter],
   model: {
     prop: 'value',
     event: 'valueChange'
@@ -63,10 +69,6 @@ export default {
       default: false
     },
     multiple: {
-      type: Boolean,
-      default: false
-    },
-    collapseTags: {
       type: Boolean,
       default: false
     },
@@ -124,6 +126,9 @@ export default {
       } else {
         this.treeDatas = val
       }
+    },
+    filterText (val) {
+      this.$refs.tree.filter(val)
     }
   },
   created () {
@@ -156,7 +161,6 @@ export default {
       for (let i = 0; i < arr.length; i++) {
         const dataObj = arr[i]
         dataObj[opt.value] = parentName + (isFirst ? '' : this.breakKey) + dataObj[opt.label]
-        // Object.assign(dataObj, { [opt.value]: parentName + (isFirst ? '' : '-') + dataObj[opt.label] })
         if (dataObj[opt.children] && dataObj[opt.children].length > 0) {
           dataObj[opt.children] = this.formateTree(dataObj[opt.value], dataObj[opt.children], opt)
         }
@@ -183,12 +187,11 @@ export default {
         return childIds.indexOf(val[id]) === -1
       })
       this.valueNameArr = filterNodes // 展示到dom上
-      
+      this.$emit('showNodes',filterNodes)
       const keywordValue = this.props.value ? this.props.value : this.props.label
       const keywordId = this.props.id ? this.props.id : this.props.label
-
-      this.$emit('valueChange', checkNodes.map(val=> val.keywordId).join(','))
-      this.$emit('getValueName', checkNodes.map(val => val.keywordValue))
+      this.$emit('valueChange', checkNodes.map(val=> val[keywordId]).join(','))
+      this.$emit('getValueName', checkNodes.map(val => val[keywordValue]))
     },
     getChildIds (arr) {
       let ids = []
