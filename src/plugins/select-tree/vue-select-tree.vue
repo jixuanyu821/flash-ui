@@ -66,10 +66,6 @@ export default {
       type: Boolean,
       default: false
     },
-    collapseTags: {
-      type: Boolean,
-      default: false
-    },
     lazy: {
       type: Boolean,
       default: false
@@ -183,10 +179,9 @@ export default {
         return childIds.indexOf(val[id]) === -1
       })
       this.valueNameArr = filterNodes // 展示到dom上
-      
+      this.$emit('showNodes',filterNodes)
       const keywordValue = this.props.value ? this.props.value : this.props.label
       const keywordId = this.props.id ? this.props.id : this.props.label
-
       this.$emit('valueChange', checkNodes.map(val=> val.keywordId).join(','))
       this.$emit('getValueName', checkNodes.map(val => val.keywordValue))
     },
