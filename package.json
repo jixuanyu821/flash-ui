@@ -9,7 +9,6 @@
     "element-ui",
     "selectTree"
   ],
-  "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --name flash-element-ui ./src/plugins/index.js",
