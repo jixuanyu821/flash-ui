@@ -2,7 +2,7 @@
 
 基于elementUi开发  需首先安装elementUi 
 
-npm install element-ui --S
+npm install flash-element-ui --S
 
 并全局引入elementUi样式
 

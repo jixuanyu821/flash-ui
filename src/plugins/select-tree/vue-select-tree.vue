@@ -7,22 +7,29 @@
       <el-button slot="append" icon="el-icon-search" @click="filterTree" />
       <!-- <el-button slot="suffix" style="border:none;" size="mini" icon="el-icon-search" @click="filterTree" /> -->
     </el-input>
-    <tree
-      ref="tree"
-      :lazy="lazy"
-      :only-child="onlyChild"
-      :class-name="'z-select-tree'"
-      :load="loadNode"
-      :show-checkbox="showCheckbox"
-      :props="props"
-      :check-on-click-node="multiple"
-      :tree-data="treeDatas"
-      @checkChange="checkChange"
-      @nodeClick="nodeClick" />
+    <el-scrollbar>
+      <tree
+        ref="tree"
+        :lazy="lazy"
+        :only-child="onlyChild"
+        :class-name="'z-select-tree'"
+        :load="loadNode"
+        :show-checkbox="showCheckbox"
+        :props="props"
+        :check-on-click-node="multiple"
+        :tree-data="treeDatas"
+        @checkChange="checkChange"
+        @nodeClick="nodeClick" />
+    </el-scrollbar>
     <el-input v-if="!showCheckbox" slot="reference" v-model="valueName" clearable :suffix-icon="visible?'el-icon-arrow-up':'el-icon-arrow-down'" @clear="clearValue" />
     <div v-else slot="reference" class="el-input">
-      <div class="el-input__inner">
-        <el-tag v-for="(item, index) in valueNameArr" :key="index" size="small" type="info">{{ item[props.value?props.value:props.label] }}</el-tag>
+      <div class="el-input__inner nowrap">
+        <div class="flexDiv" style="height:100%">
+          <el-tag v-if="valueNameArr && valueNameArr.length>0" size="small" type="info">{{ valueNameArr[0][props.label] }}</el-tag>
+          <el-tag v-if="valueNameArr && valueNameArr.length>1" size="small" type="info" style="margin-left:8px;">+1</el-tag>
+          <!-- <el-tag v-for="(item, index) in valueNameArr" :key="index" size="small" type="info">{{ item[props.value?props.value:props.label] }}</el-tag> -->
+        </div>
+        <i :class="visible?'el-icon-arrow-up':'el-icon-arrow-down'" />
       </div>
     </div>
   </el-popover>
@@ -92,7 +99,7 @@ export default {
     },
     value: { // 组件id
       default: '',
-      type: String || Array
+      type: String
     },
     onlyChild: { // 是否开启只能选择子节点模式
       type: Boolean,
@@ -109,16 +116,6 @@ export default {
       valueName: '',
       valueNameArr: []
     }
-  },
-  computed: {
-    // valueId: function () {
-    //   const keywordId = this.props.id ? this.props.id : this.props.label
-    //   return this.selectNode[keywordId] || ''
-    // },
-    // valueName: function () {
-    //   const keywordValue = this.props.value ? this.props.value : this.props.label
-    //   return this.selectNode[keywordValue] || ''
-    // }
   },
   watch: {
     treeData (val) {
@@ -170,31 +167,59 @@ export default {
       return this.$refs.tree.getCheckedNode()
     },
     checkChange (checkData, isChecked, childCheck) {
-      console.log(checkData, isChecked, childCheck)
+      this.$emit('checkChange',checkData, isChecked, childCheck)
+      const checkNodes = this.getCheckedNodes() // 获取所有选中节点（包含子节点）
+      let childIds = [] // 获取所有子节点Id  用作过滤
+      const child = this.props.children
+      const id = this.props.id
+      if (checkNodes.length > 0) {
+        for (let i = 0; i < checkNodes.length; i++) {
+          if (checkNodes[i][child] && checkNodes[i][child].length > 0) {
+            childIds = childIds.concat(this.getChildIds(checkNodes[i][child])) // 获取所有包含子节点的数组
+          }
+        }
+      }
+      const filterNodes = checkNodes.filter(val => { // 在选中节点中过滤掉子节点数组
+        return childIds.indexOf(val[id]) === -1
+      })
+      this.valueNameArr = filterNodes // 展示到dom上
+      
       const keywordValue = this.props.value ? this.props.value : this.props.label
       const keywordId = this.props.id ? this.props.id : this.props.label
-      if (isChecked) {
-        this.valueNameArr.push(checkData)
-        if (typeof this.value === 'string') {
-          const value = [checkData[keywordId]]
-          this.$emit('valueChange', value)
+
+      this.$emit('valueChange', checkNodes.map(val=> val.keywordId).join(','))
+      this.$emit('getValueName', checkNodes.map(val => val.keywordValue))
+    },
+    getChildIds (arr) {
+      let ids = []
+      const child = this.props.children
+      const id = this.props.id
+      for (var i = 0; i < arr.length; i++) {
+        const node = arr[i]
+        ids.push(node[id])
+        if (node[child] && node[child].length > 0) {
+          ids = ids.concat(this.getChildIds(node[child]), child)
         }
-        this.$emit('getValueName', this.valueNameArr.map(val => val[keywordValue]))
-      } else {
-        // let index = 0
-        // for(let i =0;i<)
-        // this.valueNameArr
       }
+      return ids
     }
   }
 }
 </script>
 <style lang="scss">
 .el-popover{
-  .el-tree.z-select-tree{
+  .z-select-tree{
     margin-top: 8px;
     min-height: 200px;
-
+    max-height: 350px;
+  }
+}
+.el-input__inner.nowrap{
+  position: relative;
+  [class*=" el-icon-"], [class^=el-icon-]{
+    position: absolute;
+    right: 8px;
+    top: 12px;
   }
 }
 </style>
