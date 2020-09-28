@@ -11,6 +11,7 @@
       <z-tree
         ref="tree"
         :lazy="lazy"
+        :node-key="nodeKey"
         :only-child="onlyChild"
         :class-name="'z-select-tree'"
         :load="loadNode"
@@ -50,7 +51,7 @@ export default {
     ZTree
   },
   model: {
-    prop: 'value',
+    prop: 'treeValue',
     event: 'valueChange'
   },
   props: {
@@ -68,9 +69,13 @@ export default {
       type: Boolean,
       default: false
     },
-    multiple: {
+    multiple: { // 多选
       type: Boolean,
       default: false
+    },
+    nodeKey: {
+      type: String,
+      default: 'id'
     },
     lazy: {
       type: Boolean,
@@ -99,7 +104,7 @@ export default {
         }
       }
     },
-    value: { // 组件id
+    treeValue: { // 组件id 外部组件使用v-model绑定
       default: '',
       type: String
     },
@@ -126,6 +131,18 @@ export default {
       } else {
         this.treeDatas = val
       }
+      this.$nextTick(() => {
+        this.$refs.tree.setCheckedKeys(this.treeValue.split(','))
+        const checkNodes = this.treeValue.split(',').map((id) => {
+          return this.getNode(id)
+        })
+        const keywordValue = this.props.value ? this.props.value : this.props.label
+        if (checkNodes) {
+          const valueName = checkNodes.map(val => val['data'][keywordValue]).join(',')
+          this.valueName = valueName
+          this.$emit('getValueName', valueName)
+        }
+      })
     },
     filterText (val) {
       this.$refs.tree.filter(val)

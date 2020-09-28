@@ -131,6 +131,10 @@ export default {
     }
   },
   methods: {
+    getNode (data) {
+      console.log(this.$refs.tree.getNode(data), 'node')
+      return this.$refs.tree.getNode(data)
+    },
     onlyChildNode (arr) {
       const children = this.props.children || 'children'
       for (let i = 0; i < arr.length; i++) {
