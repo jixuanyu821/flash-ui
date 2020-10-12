@@ -1,10 +1,11 @@
 import Vue from 'vue'
-import 'element-ui/lib/theme-chalk/index.css'
+import App from './App.vue'
 
-import FlashElementUi from './plugins/index'
-Vue.use(FlashElementUi)
+import flashElementUi from './plugins'
 
+Vue.use(flashElementUi)
+
+Vue.config.productionTip = false
 new Vue({
-  el: '#app',
-  render: h => h(App)
-})
+  render: h => h(App),
+}).$mount('#app')

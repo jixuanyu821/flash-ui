@@ -1,6 +1,7 @@
 <template>
   <el-popover v-model="visible"
               class="z-select-tree"
+              :disabled="disabled"
               placement="bottom"
               :width="width">
     <el-input v-model="filterTxt" class="z-select-input" size="medium ">
@@ -8,9 +9,10 @@
       <!-- <el-button slot="suffix" style="border:none;" size="mini" icon="el-icon-search" @click="filterTree" /> -->
     </el-input>
     <el-scrollbar>
-      <tree
+      <z-tree
         ref="tree"
         :lazy="lazy"
+        :node-key="nodeKey"
         :only-child="onlyChild"
         :class-name="'z-select-tree'"
         :load="loadNode"
@@ -21,8 +23,8 @@
         @checkChange="checkChange"
         @nodeClick="nodeClick" />
     </el-scrollbar>
-    <el-input v-if="!showCheckbox" slot="reference" v-model="valueName" clearable :suffix-icon="visible?'el-icon-arrow-up':'el-icon-arrow-down'" @clear="clearValue" />
-    <div v-else slot="reference" class="el-input">
+    <el-input v-if="!showCheckbox" slot="reference" :disabled="disabled" v-model="valueName" clearable :suffix-icon="visible?'el-icon-arrow-up':'el-icon-arrow-down'" @clear="clearValue" />
+    <div v-else slot="reference" class="el-input" :class="{'is-disabled':disabled}">
       <div class="el-input__inner nowrap">
         <div class="flexDiv" style="height:100%">
           <el-tag v-if="valueNameArr && valueNameArr.length>0" size="small" type="info">{{ valueNameArr[0][props.label] }}</el-tag>
@@ -35,19 +37,29 @@
   </el-popover>
 </template>
 <script>
-import Tree from '@/components/Tree'
-import TreeFilter from '@/mixins/TreeFilter'
+import ZTree from '../tree/vue-tree'
+import { Input, Tree, Popover, Button,Scrollbar } from 'element-ui'
+import Vue from 'vue'
+Vue.use(Tree)
+Vue.use(Input)
+Vue.use(Popover)
+Vue.use(Button)
+Vue.use(Scrollbar)
 
 export default {
+  name: 'ZSelectTree',
   components: {
-    Tree
+    ZTree
   },
-  mixins: [TreeFilter],
   model: {
-    prop: 'value',
+    prop: 'treeValue',
     event: 'valueChange'
   },
   props: {
+    disabled: {
+      type: Boolean,
+      default: false
+    },
     width: {
       default: '240',
       type: String
@@ -62,9 +74,13 @@ export default {
       type: Boolean,
       default: false
     },
-    multiple: {
+    multiple: { // 多选
       type: Boolean,
       default: false
+    },
+    nodeKey: {
+      type: String,
+      default: 'id'
     },
     lazy: {
       type: Boolean,
@@ -93,7 +109,7 @@ export default {
         }
       }
     },
-    value: { // 组件id
+    treeValue: { // 组件id 外部组件使用v-model绑定
       default: '',
       type: String
     },
@@ -120,6 +136,21 @@ export default {
       } else {
         this.treeDatas = val
       }
+      this.$nextTick(() => {
+        this.$refs.tree.setCheckedKeys(this.treeValue.split(','))
+        const checkNodes = this.treeValue.split(',').map((id) => {
+          return this.getNode(id)
+        })
+        const keywordValue = this.props.value ? this.props.value : this.props.label
+        if (checkNodes) {
+          const valueName = checkNodes.map(val => val['data'][keywordValue]).join(',')
+          this.valueName = valueName
+          this.$emit('getValueName', valueName)
+        }
+      })
+    },
+    filterText (val) {
+      this.$refs.tree.filter(val)
     }
   },
   created () {
@@ -152,7 +183,6 @@ export default {
       for (let i = 0; i < arr.length; i++) {
         const dataObj = arr[i]
         dataObj[opt.value] = parentName + (isFirst ? '' : this.breakKey) + dataObj[opt.label]
-        // Object.assign(dataObj, { [opt.value]: parentName + (isFirst ? '' : '-') + dataObj[opt.label] })
         if (dataObj[opt.children] && dataObj[opt.children].length > 0) {
           dataObj[opt.children] = this.formateTree(dataObj[opt.value], dataObj[opt.children], opt)
         }

@@ -31,6 +31,10 @@
   </el-tree>
 </template>
 <script>
+import {  Tree  } from 'element-ui'
+import Vue from 'vue'
+Vue.use(Tree)
+
 export default {
   name: 'Tree',
   props: {
@@ -127,12 +131,16 @@ export default {
     }
   },
   methods: {
+    getNode (data) {
+      console.log(this.$refs.tree.getNode(data), 'node')
+      return this.$refs.tree.getNode(data)
+    },
     onlyChildNode (arr) {
       const children = this.props.children || 'children'
       for (let i = 0; i < arr.length; i++) {
         const opt = arr[i]
         if (opt[children] && opt[children].length > 0) {
-          if (!opt.hasOwnProperty('disabled')) {
+          if (!Object.prototype.hasOwnProperty.call(opt, "disabled")) {
             this.$set(opt, 'disabled', true)
           }
           opt[children] = this.onlyChildNode(opt[children])
@@ -189,7 +197,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/styles/variables.scss';
+@import './variables.scss';
 
 .tree {
   .node-label {

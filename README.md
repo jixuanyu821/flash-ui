@@ -10,6 +10,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 
 ## 常用用法
 tree-select 
+disabled(type:Boolen,default:false) 禁用下拉框
 width(type:String,default: '240') 下拉弹出框宽度 
 
 lazy(type:Boolen,default:false) 子节点是否异步加载 若异步加载 需传入loadNode
@@ -35,6 +36,8 @@ v-model 绑定的为树节点id 默认取id,可通过props变更 若传入得pro
 ## update
 
 0.3.0 新增多选菜单功能 value绑定值为id数组字符串 逗号隔开
+
+0.3.7 新增disabled选项 可以控制禁用下拉选择
 
 ## Build Setup
 
