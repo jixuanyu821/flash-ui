@@ -212,8 +212,8 @@ export default {
       this.$emit('showNodes',filterNodes)
       const keywordValue = this.props.value ? this.props.value : this.props.label
       const keywordId = this.props.id ? this.props.id : this.props.label
-      this.$emit('valueChange', checkNodes.map(val=> val.keywordId).join(','))
-      this.$emit('getValueName', checkNodes.map(val => val.keywordValue))
+      this.$emit('valueChange', checkNodes.map(val=> val[keywordId]).join(','))
+      this.$emit('getValueName', checkNodes.map(val => val[keywordValue]))
     },
     getChildIds (arr) {
       let ids = []
