@@ -10,7 +10,9 @@ import 'element-ui/lib/theme-chalk/index.css'
 
 ## 常用用法
 tree-select 
+
 disabled(type:Boolen,default:false) 禁用下拉框
+
 width(type:String,default: '240') 下拉弹出框宽度 
 
 lazy(type:Boolen,default:false) 子节点是否异步加载 若异步加载 需传入loadNode
