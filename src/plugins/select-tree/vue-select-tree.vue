@@ -1,6 +1,7 @@
 <template>
   <el-popover v-model="visible"
               class="z-select-tree"
+              :disabled="disabled"
               placement="bottom"
               :width="width">
     <el-input v-model="filterTxt" class="z-select-input" size="medium ">
@@ -22,8 +23,8 @@
         @checkChange="checkChange"
         @nodeClick="nodeClick" />
     </el-scrollbar>
-    <el-input v-if="!showCheckbox" slot="reference" v-model="valueName" clearable :suffix-icon="visible?'el-icon-arrow-up':'el-icon-arrow-down'" @clear="clearValue" />
-    <div v-else slot="reference" class="el-input">
+    <el-input v-if="!showCheckbox" slot="reference" :disabled="disabled" v-model="valueName" clearable :suffix-icon="visible?'el-icon-arrow-up':'el-icon-arrow-down'" @clear="clearValue" />
+    <div v-else slot="reference" class="el-input" :class="{'is-disabled':disabled}">
       <div class="el-input__inner nowrap">
         <div class="flexDiv" style="height:100%">
           <el-tag v-if="valueNameArr && valueNameArr.length>0" size="small" type="info">{{ valueNameArr[0][props.label] }}</el-tag>
@@ -55,6 +56,10 @@ export default {
     event: 'valueChange'
   },
   props: {
+    disabled: {
+      type: Boolean,
+      default: false
+    },
     width: {
       default: '240',
       type: String
