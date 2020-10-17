@@ -149,6 +149,13 @@ export default {
         }
       })
     },
+    treeValue(val) {
+      if (val === '') {
+        this.valueName = ''
+        this.$emit('getValueName', '')
+        return
+      }
+    },
     filterText (val) {
       this.$refs.tree.filter(val)
     }
