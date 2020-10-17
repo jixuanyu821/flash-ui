@@ -153,7 +153,8 @@ export default {
       if (val === '') {
         this.valueName = ''
         this.$emit('getValueName', '')
-        return
+        this.valueNameArr = []
+        this.$refs.tree.setCheckedKeys([])
       }
     },
     filterText (val) {
