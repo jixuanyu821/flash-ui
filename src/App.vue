@@ -38,11 +38,12 @@
           <f-tree
             :tree-data="classTree"
             :props="props"
+            :deleteBtn="true"
           >
-          <div slot="btn"  class="self-btns" slot-scope="{ node, data }">
-            <i class="el-icon-video-play btn-item" @click.stop="() => nodePlay(node,data)" />
-            <i class="el-icon-video-pause btn-item" @click.stop="() => nodePause(node,data)" />
-          </div>
+            <span slot="btn" slot-scope="{ node, data }">
+              <i class="el-icon-video-play btn-item" @click.stop="() => nodePlay(node,data)" />
+              <i class="el-icon-video-pause btn-item" @click.stop="() => nodePause(node,data)" />
+            </span>
           </f-tree>
         </div>
       </div>

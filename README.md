@@ -44,6 +44,8 @@ v-model 绑定的为树节点id 默认取id,可通过props变更 若传入得pro
 
 0.3.8 树组件 添加slot插槽 可以自定义按钮了
 
+0.3.9 修改slot插槽功能 支持自定义按钮和默认按钮混用 
+
 ## Build Setup
 
 ``` bash

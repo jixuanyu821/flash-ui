@@ -22,12 +22,12 @@
     @node-click="nodeClick">
     <span slot-scope="{ node, data }">
       <span class="node-label" :class="{'is-disabled':node.disabled} ">{{ node.label }}</span>
-      <div class="self-btns" v-show="editBtn || addBtn || deleteBtn">
+      <div class="self-btns">
         <i v-show="editBtn" class="el-icon-edit-outline btn-item" @click.stop="() => editNode(node, data)" />
         <i v-show="addBtn" class="el-icon-plus btn-item" @click.stop="() => addNode(data,node)" />
         <i v-show="deleteBtn" class="el-icon-delete btn-item" @click.stop="() => deleteNode(node, data)" />
+        <slot name="btn" :data="data" :node="node"></slot>
       </div>
-      <slot name="btn" :data="data" :node="node"></slot>
     </span>
   </el-tree>
 </template>
@@ -219,9 +219,7 @@ export default {
     .btn-item {
       display: inline-block;
       font-weight: 600;
-      &+.btn-item {
-        margin-left: 5px;
-      }
+      margin-left: 5px;
     }
   }
   .el-tree-node__content {
