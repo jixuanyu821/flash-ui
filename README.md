@@ -9,6 +9,7 @@ npm install flash-element-ui --S
 import 'element-ui/lib/theme-chalk/index.css'
 
 引入本组件
+
 npm install flash-element-ui --S
 
 ## 常用用法
