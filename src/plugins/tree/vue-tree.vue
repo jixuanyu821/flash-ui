@@ -1,7 +1,7 @@
 <template>
   <el-tree
     ref="tree"
-    class="tree"
+    class="f-tree"
     :class="className"
     :data="treeData"
     :load="load"
@@ -22,11 +22,12 @@
     @node-click="nodeClick">
     <span slot-scope="{ node, data }">
       <span class="node-label" :class="{'is-disabled':node.disabled} ">{{ node.label }}</span>
-      <div class="self-btns">
-        <i v-show="editBtn" class="el-icon-edit btn-item" @click.stop="() => editNode(node, data)" />
+      <div class="self-btns" v-show="editBtn || addBtn || deleteBtn">
+        <i v-show="editBtn" class="el-icon-edit-outline btn-item" @click.stop="() => editNode(node, data)" />
         <i v-show="addBtn" class="el-icon-plus btn-item" @click.stop="() => addNode(data,node)" />
-        <i v-show="deleteBtn" class="el-icon-minus btn-item" @click.stop="() => deleteNode(node, data)" />
+        <i v-show="deleteBtn" class="el-icon-delete btn-item" @click.stop="() => deleteNode(node, data)" />
       </div>
+      <slot name="btn" :data="data" :node="node"></slot>
     </span>
   </el-tree>
 </template>
@@ -36,7 +37,7 @@ import Vue from 'vue'
 Vue.use(Tree)
 
 export default {
-  name: 'Tree',
+  name: 'FTree',
   props: {
     className: {
       type: String,
@@ -196,10 +197,10 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 @import './variables.scss';
 
-.tree {
+.f-tree {
   .node-label {
     font-size: 14px;
     &.is-disabled{
@@ -207,7 +208,6 @@ export default {
     }
   }
   .self-btns {
-    display: none;
     position: absolute;
     top: 3px;
     height: 20px;
@@ -224,7 +224,7 @@ export default {
       }
     }
   }
-  >>>.el-tree-node__content {
+  .el-tree-node__content {
     position: relative;
     &:hover {
       .self-btns {

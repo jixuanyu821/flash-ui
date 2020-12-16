@@ -1,10 +1,52 @@
 <template>
   <div id="app">
-    <z-select-tree
-      v-model="contentsortId"
-      :tree-data="classTree"
-      :props="props"
-     />
+    <div>
+      <el-divider>基础用法</el-divider>
+      <div class="contanier">
+        <div>
+          <h5>树结构</h5>
+          <f-tree :tree-data="classTree" :props="props" />
+        </div>
+        <div>
+          <h5>下拉树</h5>
+          <f-select-tree
+            v-model="contentsortId"
+            :tree-data="classTree"
+            :props="props"
+          />
+        </div>
+      </div>
+    </div>
+    <div>
+      <el-divider>添加按钮</el-divider>
+      <div class="contanier">
+        <div>
+          <h5>自带按钮(增删改三种)</h5>
+          <f-tree
+            :addBtn="true"
+            :editBtn="true"
+            :deleteBtn="true"
+            @addNode="addNode"
+            @editNode="editNode"
+            @deleteNode="deleteNode"
+            :tree-data="classTree"
+            :props="props"
+          />
+        </div>
+        <div>
+          <h5>自定义按钮(树组件)</h5>
+          <f-tree
+            :tree-data="classTree"
+            :props="props"
+          >
+          <div slot="btn"  class="self-btns" slot-scope="{ node, data }">
+            <i class="el-icon-video-play btn-item" @click.stop="() => nodePlay(node,data)" />
+            <i class="el-icon-video-pause btn-item" @click.stop="() => nodePause(node,data)" />
+          </div>
+          </f-tree>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -14,61 +56,61 @@ export default {
   data() {
     return {
       contentsortId: '',
-      props:{
-        children:'nextNode',
-        id:'addressId',
-        label: 'addressName'
+      props: {
+        children: 'nextNode',
+        id: 'addressId',
+        label: 'addressName',
       },
       classTree: [
         {
-          addressId: '97736674db97445f8cdf5335891d46b4',
+          addressId: '1',
           addressName: '台州市1',
           parentId: '-1',
           fullName: '杭州市台州市',
           nextNode: [
             {
-              addressId: '4795a0a6ce8d4708b99a776e5319ec71',
+              addressId: '2',
               addressName: '01市1',
-              parentId: '97736674db97445f8cdf5335891d46b4',
+              parentId: '1',
               fullName: '杭州市01市1',
               nextNode: [],
             },
             {
-              addressId: 'b54fbf6121894e438020bf2e008b9a50',
+              addressId: '3',
               addressName: '02市',
-              parentId: '97736674db97445f8cdf5335891d46b4',
+              parentId: '1',
               fullName: '杭州市02市',
               nextNode: [
                 {
-                  addressId: '0b19437a18f04467aac211b0c4ecacf1',
+                  addressId: '4',
                   addressName: '02市街道',
-                  parentId: 'b54fbf6121894e438020bf2e008b9a50',
+                  parentId: '3',
                   fullName: '02市街道',
                   nextNode: [
                     {
-                      addressId: '9f3d226c2daa49c3a686dbc80633f7e7',
+                      addressId: '5',
                       addressName: '西湖小区',
-                      parentId: '0b19437a18f04467aac211b0c4ecacf1',
+                      parentId: '4',
                       fullName: '西湖小区',
                       nextNode: [],
                     },
                     {
-                      addressId: '67758fbf26c6469488e0383c70f5ec72',
+                      addressId: '6',
                       addressName: '西湖小区',
-                      parentId: '0b19437a18f04467aac211b0c4ecacf1',
+                      parentId: '4',
                       fullName: '西湖小区',
                       nextNode: [],
                     },
                     {
-                      addressId: '86c66f2f691f434fb4469a30f0a4dac8',
+                      addressId: '7',
                       addressName: '小区211',
-                      parentId: '0b19437a18f04467aac211b0c4ecacf1',
+                      parentId: '4',
                       fullName: '小区21',
                       nextNode: [
                         {
-                          addressId: '1f571ad7820741ae8bf8550af683576e',
+                          addressId: '8',
                           addressName: '13楼',
-                          parentId: '86c66f2f691f434fb4469a30f0a4dac8',
+                          parentId: '7',
                           fullName: '13楼',
                           nextNode: [],
                         },
@@ -105,10 +147,30 @@ export default {
       ],
     }
   },
+  methods:{
+    deleteNode(){
+      this.$message.error('点击删除了')
+    },
+    addNode(){
+      this.$message.success('点击添加了')
+    },
+    editNode(){
+      this.$message.warning('点击编辑了了')
+    },
+    nodePlay(node, data){
+      console.log(node, data)
+      this.$message.success('点击了播放')
+    },
+    nodePause(node, data){
+      console.log(node, data)
+      this.$message.success('点击了暂停')
+    },
+
+  }
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -116,5 +178,15 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  .contanier {
+    display: flex;
+    justify-content: space-around;
+    & > div {
+      border: 1px solid #e5e5e5;
+      width: 400px;
+      padding: 20px;
+      min-height: 500px;
+    }
+  }
 }
 </style>

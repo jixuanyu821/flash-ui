@@ -8,6 +8,9 @@ npm install flash-element-ui --S
 
 import 'element-ui/lib/theme-chalk/index.css'
 
+引入本组件
+npm install flash-element-ui --S
+
 ## 常用用法
 tree-select 
 disabled(type:Boolen,default:false) 禁用下拉框
@@ -38,6 +41,8 @@ v-model 绑定的为树节点id 默认取id,可通过props变更 若传入得pro
 0.3.0 新增多选菜单功能 value绑定值为id数组字符串 逗号隔开
 
 0.3.7 新增disabled选项 可以控制禁用下拉选择
+
+0.3.8 树组件 添加slot插槽 可以自定义按钮了
 
 ## Build Setup
 

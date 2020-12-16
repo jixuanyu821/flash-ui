@@ -1,6 +1,6 @@
 <template>
   <el-popover v-model="visible"
-              class="z-select-tree"
+              class="f-select-tree"
               :disabled="disabled"
               placement="bottom"
               :width="width">
@@ -9,7 +9,7 @@
       <!-- <el-button slot="suffix" style="border:none;" size="mini" icon="el-icon-search" @click="filterTree" /> -->
     </el-input>
     <el-scrollbar>
-      <z-tree
+      <F-tree
         ref="tree"
         :lazy="lazy"
         :node-key="nodeKey"
@@ -37,7 +37,7 @@
   </el-popover>
 </template>
 <script>
-import ZTree from '../tree/vue-tree'
+import FTree from '../tree/vue-tree'
 import { Input, Tree, Popover, Button,Scrollbar } from 'element-ui'
 import Vue from 'vue'
 Vue.use(Tree)
@@ -47,9 +47,9 @@ Vue.use(Button)
 Vue.use(Scrollbar)
 
 export default {
-  name: 'ZSelectTree',
+  name: 'FSelectTree',
   components: {
-    ZTree
+    FTree
   },
   model: {
     prop: 'treeValue',
@@ -241,7 +241,7 @@ export default {
 </script>
 <style lang="scss">
 .el-popover{
-  .z-select-tree{
+  .f-select-tree{
     margin-top: 8px;
     min-height: 200px;
     max-height: 350px;

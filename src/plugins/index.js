@@ -1,7 +1,7 @@
-import ZTree from './tree/index.js'
-import ZSelectTree from './select-tree/index.js'
+import FTree from './tree/index.js'
+import FSelectTree from './select-tree/index.js'
 
-const components = [ZTree, ZSelectTree]
+const components = [FTree, FSelectTree]
 
 const install = function (Vue) {
   components.forEach(component => {
@@ -13,6 +13,6 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 export default {
   install,
-  ZTree,
-  ZSelectTree
+  FTree,
+  FSelectTree
 }
