@@ -19,19 +19,36 @@
     :filter-node-method="filterNode"
     :check-strictly="checkStrictly"
     @check-change="checkChange"
-    @node-click="nodeClick">
+    @node-click="nodeClick"
+  >
     <span slot-scope="{ node, data }">
-      <span class="node-label" :class="{'is-disabled':node.disabled} ">{{ node.label }}</span>
+      <span class="node-label" v-if="editable"> </span>
+      <span class="node-label" :class="{ 'is-disabled': node.disabled }">{{
+        node.label
+      }}</span>
       <div class="self-btns">
-        <i v-show="editBtn" class="el-icon-edit btn-item" @click.stop="() => editNode(node, data)" />
-        <i v-show="addBtn" class="el-icon-plus btn-item" @click.stop="() => addNode(data,node)" />
-        <i v-show="deleteBtn" class="el-icon-minus btn-item" @click.stop="() => deleteNode(node, data)" />
+        <i
+          v-show="editBtn"
+          class="el-icon-edit-outline btn-item"
+          @click.stop="() => editNode(node, data)"
+        />
+        <i
+          v-show="addBtn"
+          class="el-icon-plus btn-item"
+          @click.stop="() => addNode(data, node)"
+        />
+        <i
+          v-show="deleteBtn"
+          class="el-icon-delete btn-item"
+          @click.stop="() => deleteNode(node, data)"
+        />
+        <slot name="btn" :data="data" :node="node"></slot>
       </div>
     </span>
   </el-tree>
 </template>
 <script>
-import {  Tree  } from 'element-ui'
+import { Tree } from 'element-ui'
 import Vue from 'vue'
 Vue.use(Tree)
 
@@ -40,107 +57,114 @@ export default {
   props: {
     className: {
       type: String,
-      default: ''
+      default: '',
     },
     treeData: {
       required: true,
-      type: Array
+      type: Array,
     },
     load: {
       type: Function,
-      default: undefined
+      default: undefined,
     },
     nodeKey: {
       type: String,
-      default: 'id'
+      default: 'id',
     },
     props: {
       type: Object,
-      default () {
+      default() {
         return {
           children: 'children',
-          label: 'label'
+          label: 'label',
         }
-      }
+      },
     },
     lazy: {
       type: Boolean,
-      default: false
+      default: false,
     },
     showCheckbox: {
       type: Boolean,
-      default: false
+      default: false,
     },
     clickNodeExpand: {
       type: Boolean,
-      default: false
+      default: false,
     },
     checkOnClickNode: {
       type: Boolean,
-      default: false
+      default: false,
     },
     defaultExpended: {
       type: Array,
-      default () {
+      default() {
         return []
-      }
+      },
     },
     defaultExpandAll: {
       type: Boolean,
-      default: false
+      default: false,
     },
     currentNodeKey: {
       type: String,
-      default: '0'
+      default: '0',
     },
     addBtn: {
       type: Boolean,
-      default: false
+      default: false,
     },
     deleteBtn: {
       type: Boolean,
-      default: false
+      default: false,
     },
     editBtn: {
       type: Boolean,
-      default: false
+      default: false,
+    },
+    editable: {
+      type: Boolean,
+      default: false,
     },
     checkStrictly: {
       type: Boolean,
-      default: false
+      default: false,
     },
-    onlyChild: { // 是否开启只能选择子节点模式
+    onlyChild: {
+      // 是否开启只能选择子节点模式
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
-  data () {
-    return {
-    }
+  data() {
+    return {}
   },
   watch: {
-    treeData: function (val) {
+    treeData: function(val) {
       if (this.onlyChild) {
         this.treeData = this.onlyChildNode(val)
       }
-    }
+    },
   },
-  created () {
+  created() {
     if (this.onlyChild) {
       this.treeData = this.onlyChildNode(this.treeData)
     }
+    if (this.editable) {
+      // 若开启编辑模式，则调用setOriginData() 复制节点数据
+      this.treeData = this.setOriginData(this.treeData)
+    }
   },
   methods: {
-    getNode (data) {
-      console.log(this.$refs.tree.getNode(data), 'node')
+    getNode(data) {
       return this.$refs.tree.getNode(data)
     },
-    onlyChildNode (arr) {
+    onlyChildNode(arr) {
       const children = this.props.children || 'children'
       for (let i = 0; i < arr.length; i++) {
         const opt = arr[i]
         if (opt[children] && opt[children].length > 0) {
-          if (!Object.prototype.hasOwnProperty.call(opt, "disabled")) {
+          if (!Object.prototype.hasOwnProperty.call(opt, 'disabled')) {
             this.$set(opt, 'disabled', true)
           }
           opt[children] = this.onlyChildNode(opt[children])
@@ -148,52 +172,65 @@ export default {
       }
       return arr
     },
+    setOriginData(arr) {
+      const children = this.props.children || 'children'
+      for (let i = 0; i < arr.length; i++) {
+        const opt = arr[i]
+        let originData = JSON.parse(JSON.stringify(opt))
+        delete originData[children]
+        Object.assign(opt, { originData: originData, editFlag: false })
+        if (opt[children] && opt[children].length > 0) {
+          opt[children] = this.setOriginData(opt[children])
+        }
+      }
+      return arr
+    },
     // 过滤节点
-    filterNode (value, data) {
+    filterNode(value, data) {
       if (!value) return true
       return data[this.props.label].indexOf(value) !== -1
     },
     // 过滤函数
-    filter (val) {
+    filter(val) {
       this.$refs.tree.filter(val)
     },
     // 树节点点击事件
-    nodeClick (data, node, tree) {
+    nodeClick(data, node, tree) {
       if (data['disabled']) return
       this.$emit('nodeClick', data, node, tree)
     },
     // 编辑节点击事件
-    editNode (node, data) {
+    editNode(node, data) {
       this.$emit('editNode', node, data)
     },
     // 添加节点击事件
-    addNode (data, node) {
+    addNode(data, node) {
       this.$emit('addNode', data, node)
     },
     // 删除节点击事件
-    deleteNode (node, data) {
+    deleteNode(node, data) {
       this.$emit('deleteNode', node, data)
     },
     // 通过key设置选中的节点
-    setCheckedKeys (keys, leafOnly) {
+    setCheckedKeys(keys, leafOnly) {
       this.$refs.tree.setCheckedKeys(keys, leafOnly)
     },
     // 通过nodes、keys获取当前选中
-    getCheckedNode (leafOnly = false, includeHalfChecked = false) {
+    getCheckedNode(leafOnly = false, includeHalfChecked = false) {
       return this.$refs.tree.getCheckedNodes(leafOnly, includeHalfChecked)
     },
-    getCheckedKey (leafOnly = false) {
+    getCheckedKey(leafOnly = false) {
       return this.$refs.tree.getCheckedKeys(leafOnly)
     },
     // 获取当前被选中节点的 data，若没有节点被选中则返回 null
-    getCurrentNode () {
+    getCurrentNode() {
       return this.$refs.tree.getCurrentNode()
     },
     // 获取复选框选中状态变更的节点
-    checkChange (checkData, isChecked, childCheck) {
+    checkChange(checkData, isChecked, childCheck) {
       this.$emit('checkChange', checkData, isChecked, childCheck)
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>
@@ -202,7 +239,7 @@ export default {
 .tree {
   .node-label {
     font-size: 14px;
-    &.is-disabled{
+    &.is-disabled {
       cursor: no-drop;
     }
   }
@@ -231,7 +268,7 @@ export default {
         display: inline-block;
         .btn-item {
           &:hover {
-            transform: scale(1.3)
+            transform: scale(1.3);
           }
         }
       }

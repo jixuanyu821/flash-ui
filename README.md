@@ -9,8 +9,14 @@ npm install flash-element-ui --S
 import 'element-ui/lib/theme-chalk/index.css'
 
 ## 常用用法
-tree-select 
+tree
+
+
+
+tree-select
+
 disabled(type:Boolen,default:false) 禁用下拉框
+
 width(type:String,default: '240') 下拉弹出框宽度 
 
 lazy(type:Boolen,default:false) 子节点是否异步加载 若异步加载 需传入loadNode
@@ -38,6 +44,12 @@ v-model 绑定的为树节点id 默认取id,可通过props变更 若传入得pro
 0.3.0 新增多选菜单功能 value绑定值为id数组字符串 逗号隔开
 
 0.3.7 新增disabled选项 可以控制禁用下拉选择
+
+0.3.8 树组件 添加slot插槽 可以自定义按钮了
+
+0.3.9 修改slot插槽功能 支持自定义按钮和默认按钮混用 
+
+0.4.0 添加editable模式, 此模式下点击编辑按钮会显示块内编辑框 点击编辑会显示在当前节点显示输入框
 
 ## Build Setup
 

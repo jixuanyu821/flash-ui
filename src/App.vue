@@ -1,10 +1,74 @@
 <template>
   <div id="app">
-    <z-select-tree
-      v-model="contentsortId"
-      :tree-data="classTree"
-      :props="props"
-     />
+    <div>
+      <el-divider>基础用法</el-divider>
+      <div class="contanier">
+        <div>
+          <h5>树结构</h5>
+          <f-tree :tree-data="classTree" :props="props" />
+        </div>
+        <div>
+          <h5>下拉树</h5>
+          <el-input v-model="contentsortId"></el-input>
+          <f-select-tree
+            v-model="contentsortId"
+            :tree-data="classTree"
+            :props="props"
+          />
+        </div>
+      </div>
+    </div>
+    <div>
+      <el-divider>添加按钮</el-divider>
+      <div class="contanier">
+        <div>
+          <h5>自带按钮(增删改三种)</h5>
+          <f-tree
+            :addBtn="true"
+            :editBtn="true"
+            :editable="true"
+            :deleteBtn="true"
+            @addNode="addNode"
+            @editNode="editNode"
+            @deleteNode="deleteNode"
+            :tree-data="classTree"
+            :props="props"
+          />
+        </div>
+        <div>
+          <h5>自定义按钮(树组件)</h5>
+          <f-tree
+            :tree-data="classTree"
+            :props="props"
+            :deleteBtn="true"
+          >
+            <span slot="btn" slot-scope="{ node, data }">
+              <i class="el-icon-video-play btn-item" @click.stop="() => nodePlay(node,data)" />
+              <i class="el-icon-video-pause btn-item" @click.stop="() => nodePause(node,data)" />
+            </span>
+          </f-tree>
+        </div>
+      </div>
+    </div>
+    <div>
+      <el-divider>行内编辑模式</el-divider>
+      <div class="contanier">
+        <div>
+          <h5>自带按钮</h5>
+          <f-tree
+            :addBtn="true"
+            :editBtn="true"
+            :editable="true"
+            :deleteBtn="true"
+            @addNode="addNode"
+            @editNode="editNode"
+            @deleteNode="deleteNode"
+            :tree-data="classTree"
+            :props="props"
+          />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
