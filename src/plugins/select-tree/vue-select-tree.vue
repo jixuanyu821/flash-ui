@@ -131,6 +131,7 @@ export default {
   },
   watch: {
     treeData (val) {
+      const self = this
       if (this.isFullName) {
         this.treeDatas = this.formateTree('', val, this.props, true)
       } else {
@@ -139,7 +140,7 @@ export default {
       this.$nextTick(() => {
         this.$refs.tree.setCheckedKeys(this.treeValue.split(','))
         const checkNodes = this.treeValue.split(',').map((id) => {
-          return this.getNode(id)
+          return self.getNode(id)
         })
         const keywordValue = this.props.value ? this.props.value : this.props.label
         if (checkNodes) {
@@ -169,6 +170,9 @@ export default {
     }
   },
   methods: {
+    getNode(data) {
+      return this.$refs.tree.getNode(data)
+    },
     filterTree () {
       this.$refs.tree.filter(this.filterTxt)
     },

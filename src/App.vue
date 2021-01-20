@@ -9,6 +9,7 @@
         </div>
         <div>
           <h5>下拉树</h5>
+          <el-input v-model="contentsortId"></el-input>
           <f-select-tree
             v-model="contentsortId"
             :tree-data="classTree"
@@ -44,6 +45,20 @@
               <i class="el-icon-video-play btn-item" @click.stop="() => nodePlay(node,data)" />
               <i class="el-icon-video-pause btn-item" @click.stop="() => nodePause(node,data)" />
             </span>
+          </f-tree>
+        </div>
+      </div>
+    </div>
+    <div>
+      <el-divider>行内编辑</el-divider>
+      <div  class="contanier">
+        <div>
+          <h5>行内编辑框</h5>
+          <f-tree
+            :tree-data="classTree"
+            :editModel="true"
+            :editBtn="true"
+            :props="props">
           </f-tree>
         </div>
       </div>
