@@ -145,15 +145,18 @@ export default {
     },
   },
   data() {
-    return {}
+    return {
+      nodeFlag: false
+    }
   },
   watch: {
     treeData: function(val) {
       if (this.onlyChild) {
         this.treeData = this.onlyChildNode(val)
       }
-      if (this.editModel) {
+      if (this.editModel && !this.nodeFlag) {
         this.treeData = this.editModelNode(val)
+        this.$forceUpdate()
       }
     },
   },
@@ -217,6 +220,7 @@ export default {
     // 编辑节点击事件
     editNode(node, data) {
       if(this.editModel){
+        this.nodeFlag = true
         let nodeData =  this.refreshView(data,this.treeData,true )
         this.$set(this.treeData,nodeData['index'],nodeData['data'])
         console.log(this.treeData)

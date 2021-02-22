@@ -55,7 +55,7 @@
         <div>
           <h5>行内编辑框</h5>
           <f-tree
-            :tree-data="classTree"
+            :tree-data="classTree1"
             :editModel="true"
             :editBtn="true"
             :props="props">
@@ -78,6 +78,90 @@ export default {
         label: 'addressName',
       },
       classTree: [
+        {
+          addressId: '1',
+          addressName: '台州市1',
+          parentId: '-1',
+          fullName: '杭州市台州市',
+          nextNode: [
+            {
+              addressId: '2',
+              addressName: '01市1',
+              parentId: '1',
+              fullName: '杭州市01市1',
+              nextNode: [],
+            },
+            {
+              addressId: '3',
+              addressName: '02市',
+              parentId: '1',
+              fullName: '杭州市02市',
+              nextNode: [
+                {
+                  addressId: '4',
+                  addressName: '02市街道',
+                  parentId: '3',
+                  fullName: '02市街道',
+                  nextNode: [
+                    {
+                      addressId: '5',
+                      addressName: '西湖小区',
+                      parentId: '4',
+                      fullName: '西湖小区',
+                      nextNode: [],
+                    },
+                    {
+                      addressId: '6',
+                      addressName: '西湖小区',
+                      parentId: '4',
+                      fullName: '西湖小区',
+                      nextNode: [],
+                    },
+                    {
+                      addressId: '7',
+                      addressName: '小区211',
+                      parentId: '4',
+                      fullName: '小区21',
+                      nextNode: [
+                        {
+                          addressId: '8',
+                          addressName: '13楼',
+                          parentId: '7',
+                          fullName: '13楼',
+                          nextNode: [],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              addressId: '13b50863db5640ab98c32c6938147e84',
+              addressName: '新增2',
+              parentId: '97736674db97445f8cdf5335891d46b4',
+              fullName: '杭州新增2',
+              nextNode: [
+                {
+                  addressId: 'a39aa15013fd41d8a0d0785e69832d18',
+                  addressName: '02',
+                  parentId: '13b50863db5640ab98c32c6938147e84',
+                  fullName: '0202',
+                  nextNode: [],
+                },
+              ],
+            },
+            {
+              addressId: '5da5da5c88184f39aa51183ee0fcbd87',
+              addressName: '新增3',
+              parentId: '97736674db97445f8cdf5335891d46b4',
+              fullName: '新增3',
+              nextNode: [],
+            },
+          ],
+        },
+      ],
+      classTree1: [
         {
           addressId: '1',
           addressName: '台州市1',

@@ -54,7 +54,7 @@ v-model 绑定的为树节点id 默认取id,可通过props变更 若传入得pro
 npm install
 
 # serve with hot reload at localhost:8080
-npm run dev
+npm run serve
 
 # build for production with minification
 npm run build
