@@ -3,14 +3,14 @@
     ref="tree"
     class="f-tree"
     :class="className"
-    :data="treeData"
+    :data="treeDatas"
     :load="load"
     :lazy="lazy"
     :indent="14"
     :show-checkbox="showCheckbox"
     :node-key="nodeKey"
     :current-node-key="currentNodeKey"
-    :default-expanded-keys="defaultExpended"
+    :default-expanded-keys="expendNodes"
     :default-expand-all="defaultExpandAll"
     :expand-on-click-node="clickNodeExpand"
     highlight-current
@@ -19,13 +19,13 @@
     :filter-node-method="filterNode"
     :check-strictly="checkStrictly"
     @check-change="checkChange"
+    @node-expand="nodeExpand"
     @node-click="nodeClick"
   >
     <span slot-scope="{ node, data }">
-       {{data.editable}}
       <span class="node-label" v-if="editModel">
-        <span v-if="!data.editable">{{ node.label }} {{data.editable}}</span>
-        <el-input v-model="data.label" v-else></el-input>
+        <span v-if="!data.editable">{{ data[props.label] }}</span>
+        <el-input v-model="data[props.label]" v-else></el-input>
       </span>
       <span
         class="node-label"
@@ -35,21 +35,31 @@
       >
       <div class="self-btns">
         <i
-          v-show="editBtn"
+          v-show="editBtn  && !data.editable"
           class="el-icon-edit-outline btn-item"
           @click.stop="() => editNode(node, data)"
         />
         <i
-          v-show="addBtn"
+          v-show="addBtn  && !data.editable"
           class="el-icon-plus btn-item"
           @click.stop="() => addNode(data, node)"
         />
         <i
-          v-show="deleteBtn"
+          v-show="deleteBtn && !data.editable"
           class="el-icon-delete btn-item"
           @click.stop="() => deleteNode(node, data)"
         />
-        <slot name="btn" :data="data" :node="node"></slot>
+        <i
+          v-show="data.editable"
+          class="el-icon-check btn-item"
+          @click.stop="() => checkNode(node, data)"
+        />
+        <i
+          v-show="data.editable"
+          class="el-icon-close btn-item"
+          @click.stop="() => cancelNode(node, data)"
+        />
+        <slot v-show="!data.editable" name="btn" :data="data" :node="node"></slot>
       </div>
     </span>
   </el-tree>
@@ -146,27 +156,32 @@ export default {
   },
   data() {
     return {
-      nodeFlag: false
+      nodeFlag: false,
+      treeDatas: [],
+      expendNodes:[]
     }
   },
   watch: {
     treeData: function(val) {
       if (this.onlyChild) {
-        this.treeData = this.onlyChildNode(val)
+        this.treeDatas = this.onlyChildNode(val)
       }
       if (this.editModel && !this.nodeFlag) {
-        this.treeData = this.editModelNode(val)
-        this.$forceUpdate()
+        this.treeDatas = this.editModelNode(val)
       }
     },
+    defaultExpended: function (val) {
+      this.expendNodes = [...this.expendNodes,val]
+    }
   },
   created() {
     if (this.onlyChild) {
-      this.treeData = this.onlyChildNode(this.treeData)
+      this.treeDatas = this.onlyChildNode(this.treeData)
     }
     if (this.editModel) {
-      this.treeData = this.editModelNode(this.treeData)
+      this.treeDatas = this.editModelNode(this.treeData)
     }
+    this.expendNodes = [...this.defaultExpended]
   },
   methods: {
     getNode(data) {
@@ -183,7 +198,7 @@ export default {
             originData[key] = opt[key]
           }
         }
-        Object.assign(opt, { originData, 'editable': false })
+        Object.assign(opt, { originData, editable: false })
         if (opt[children] && opt[children].length > 0) {
           opt[children] = this.editModelNode(opt[children])
         }
@@ -217,33 +232,33 @@ export default {
       if (data['disabled']) return
       this.$emit('nodeClick', data, node, tree)
     },
-    // 编辑节点击事件
-    editNode(node, data) {
-      if(this.editModel){
-        this.nodeFlag = true
-        let nodeData =  this.refreshView(data,this.treeData,true )
-        this.$set(this.treeData,nodeData['index'],nodeData['data'])
-        console.log(this.treeData)
-      } else {
-        this.$emit('editNode', node, data)
-      }
+    nodeExpand(data){
+      this.expendNodes.push(data[this.nodeKey])
     },
-    // 刷新编辑节点的视图
-    refreshView(data,dataArr,flag){
-      const id = this.props.id || 'id'
+    /**
+     * @description: 用于手动设置节点参数
+     * @param {data} 节点想要变更的数据 如果是节点数据同名参数将会覆盖
+     */ 
+    setNode(data){
+      let arr = this.setNodeData(data,this.treeDatas)
+      this.treeDatas = JSON.parse(JSON.stringify(arr))
+    },
+    // 递归方式变更节点
+    setNodeData(data,Arr){
+      let id = this.nodeKey || 'id'
+      let dataArr = JSON.parse(JSON.stringify(Arr))
       const children = this.props.children || 'children'
-      let dataIndex = 0
-      for(let index = 0;index<dataArr.length;index++){
+      for (let index = 0; index < dataArr.length; index++) {
         let opt = dataArr[index]
-        dataIndex = index
-        if(opt[id]=== data[id]){
-          Object.assign(dataArr[index],{'editable':flag})
-          return {index:dataIndex, data:dataArr[dataIndex]}
+        if (opt[id] === data[id]) {
+          Object.assign(dataArr[index],data)
+          break
         }
         if (opt[children] && opt[children].length > 0) {
-          this.refreshView(data,opt[children],flag )
+          opt[children] = this.setNodeData(data, opt[children])
         }
       }
+      return dataArr
     },
     // 添加节点击事件
     addNode(data, node) {
@@ -252,6 +267,29 @@ export default {
     // 删除节点击事件
     deleteNode(node, data) {
       this.$emit('deleteNode', node, data)
+    },
+    // 编辑节点击事件
+    editNode(node, data) {
+      if (this.editModel) {
+        this.nodeFlag = true
+        this.setNode({...data, editable:true})
+      } else {
+        this.$emit('editNode', node, data)
+      }
+    },
+    // 确定按钮点击事件
+    checkNode(node, data) {
+      this.nodeFlag = false
+      data.originData[this.props.label] = data[this.props.label]
+      this.setNode({...data,editable:false})
+      this.$emit('checkNode',node,data)
+    },
+    // 取消按钮点击事件
+    cancelNode(node, data) {
+      this.nodeFlag = false
+      data[this.props.label] = data.originData[this.props.label]
+      this.setNode({...data,editable:false})
+      this.$emit('cancelNode',node,data)
     },
     // 通过key设置选中的节点
     setCheckedKeys(keys, leafOnly) {
@@ -287,7 +325,7 @@ export default {
   }
   .self-btns {
     position: absolute;
-    top: 3px;
+    top: 5px;
     height: 20px;
     line-height: 20px;
     text-align: center;
@@ -302,14 +340,19 @@ export default {
   }
   .el-tree-node__content {
     position: relative;
+    height: 30px;
+    .el-input__inner{
+      height: 26px;
+    }
     &:hover {
       .self-btns {
         display: inline-block;
-        .btn-item {
-          &:hover {
-            transform: scale(1.3);
-          }
-        }
+      }
+    }
+    .btn-item {
+      transition: all  0.2s ease-in;
+      &:hover {
+        transform: scale(1.3);
       }
     }
   }

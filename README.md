@@ -13,8 +13,19 @@ import 'element-ui/lib/theme-chalk/index.css'
 npm install flash-element-ui --S
 
 ## 常用用法
+tree
+editModel(type:Boolen,default: false) 编辑模式 true 开启编辑模式
+
+editNode(node,data) 编辑模式下 点击编辑按钮触发 组件绑定方法可以获取到值（注意：编辑按钮点击后会暂时禁用数据监听，此时改变传入组件的数据不会触发组件的视图刷新）
+
+checkNode(node,data) 编辑模式下 点击确认按钮触发，
+
+cancelNode(node,data) 编辑模式下 点击确认按钮触发，
+
 tree-select 
+
 disabled(type:Boolen,default:false) 禁用下拉框
+
 width(type:String,default: '240') 下拉弹出框宽度 
 
 lazy(type:Boolen,default:false) 子节点是否异步加载 若异步加载 需传入loadNode
@@ -46,6 +57,8 @@ v-model 绑定的为树节点id 默认取id,可通过props变更 若传入得pro
 0.3.8 树组件 添加slot插槽 可以自定义按钮了
 
 0.3.9 修改slot插槽功能 支持自定义按钮和默认按钮混用 
+
+0.4.0  增加行内编辑模式，支持行内编辑
 
 ## Build Setup
 

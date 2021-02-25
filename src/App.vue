@@ -57,6 +57,7 @@
           <f-tree
             :tree-data="classTree1"
             :editModel="true"
+            :nodeKey="'addressId'"
             :editBtn="true"
             :props="props">
           </f-tree>
