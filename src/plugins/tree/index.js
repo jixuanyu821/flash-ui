@@ -1,8 +1,8 @@
-import ZTree from './vue-tree.vue'
+import FTree from './vue-tree.vue'
 
-ZTree.install = function (Vue) {
-  console.log(ZTree.name)
-  Vue.component(ZTree.name, ZTree)
+FTree.install = function (Vue) {
+  console.log(FTree.name)
+  Vue.component(FTree.name, FTree)
 }
 
-export default ZTree
+export default FTree

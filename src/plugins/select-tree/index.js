@@ -1,8 +1,8 @@
-import ZSelectTree from './vue-select-tree.vue'
+import FSelectTree from './vue-select-tree.vue'
 
 /* istanbul ignore next */
-ZSelectTree.install = function (Vue) {
-  Vue.component(ZSelectTree.name, ZSelectTree)
+FSelectTree.install = function (Vue) {
+  Vue.component(FSelectTree.name, FSelectTree)
 }
 
-export default ZSelectTree
+export default FSelectTree

@@ -1,6 +1,6 @@
 <template>
   <el-popover v-model="visible"
-              class="z-select-tree"
+              class="f-select-tree"
               :disabled="disabled"
               placement="bottom"
               :width="width">
@@ -9,7 +9,7 @@
       <!-- <el-button slot="suffix" style="border:none;" size="mini" icon="el-icon-search" @click="filterTree" /> -->
     </el-input>
     <el-scrollbar>
-      <z-tree
+      <F-tree
         ref="tree"
         :lazy="lazy"
         :node-key="nodeKey"
@@ -37,7 +37,7 @@
   </el-popover>
 </template>
 <script>
-import ZTree from '../tree/vue-tree'
+import FTree from '../tree/vue-tree'
 import { Input, Tree, Popover, Button,Scrollbar } from 'element-ui'
 import Vue from 'vue'
 Vue.use(Tree)
@@ -47,9 +47,9 @@ Vue.use(Button)
 Vue.use(Scrollbar)
 
 export default {
-  name: 'ZSelectTree',
+  name: 'FSelectTree',
   components: {
-    ZTree
+    FTree
   },
   model: {
     prop: 'treeValue',
@@ -131,6 +131,7 @@ export default {
   },
   watch: {
     treeData (val) {
+      const self = this
       if (this.isFullName) {
         this.treeDatas = this.formateTree('', val, this.props, true)
       } else {
@@ -139,7 +140,7 @@ export default {
       this.$nextTick(() => {
         this.$refs.tree.setCheckedKeys(this.treeValue.split(','))
         const checkNodes = this.treeValue.split(',').map((id) => {
-          return this.getNode(id)
+          return self.getNode(id)
         })
         const keywordValue = this.props.value ? this.props.value : this.props.label
         if (checkNodes) {
@@ -148,6 +149,14 @@ export default {
           this.$emit('getValueName', valueName)
         }
       })
+    },
+    treeValue(val) {
+      if (val === '') {
+        this.valueName = ''
+        this.$emit('getValueName', '')
+        this.valueNameArr = []
+        this.$refs.tree.setCheckedKeys([])
+      }
     },
     filterText (val) {
       this.$refs.tree.filter(val)
@@ -161,6 +170,9 @@ export default {
     }
   },
   methods: {
+    getNode(data) {
+      return this.$refs.tree.getNode(data)
+    },
     filterTree () {
       this.$refs.tree.filter(this.filterTxt)
     },
@@ -233,7 +245,7 @@ export default {
 </script>
 <style lang="scss">
 .el-popover{
-  .z-select-tree{
+  .f-select-tree{
     margin-top: 8px;
     min-height: 200px;
     max-height: 350px;
