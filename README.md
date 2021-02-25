@@ -9,11 +9,7 @@ npm install flash-element-ui --S
 import 'element-ui/lib/theme-chalk/index.css'
 
 ## 常用用法
-tree
-
-
-
-tree-select
+tree-select 
 
 disabled(type:Boolen,default:false) 禁用下拉框
 
