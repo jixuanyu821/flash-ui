@@ -14,6 +14,7 @@ npm install flash-element-ui --S
 
 ## 常用用法
 tree
+
 editModel(type:Boolen,default: false) 编辑模式 true 开启编辑模式
 
 editNode(node,data) 编辑模式下 点击编辑按钮触发 组件绑定方法可以获取到值（注意：编辑按钮点击后会暂时禁用数据监听，此时改变传入组件的数据不会触发组件的视图刷新）
