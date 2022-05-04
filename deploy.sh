@@ -14,7 +14,7 @@ cd docs/.vuepress/dist
 
 git init
 git add -A
-git commit -m 'docs: build doc'
+git commit -m 'deploy'
 #如果发布到https: //<USERNAME>. github.10
 # git push -f git@github.com:wjwyyds/wjwyyds.github.io.git master
 #如果发布到https:/ /<USERNAME> . github . io/ <REPO>
