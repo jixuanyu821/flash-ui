@@ -1,0 +1,1 @@
+import{_ as s,f as n,I as r,r as a,o as d,q as p}from"./app.e8f792de.js";const f=n({setup(){return{checked:r(!0)}}});function h(e,c,i,_,k,u){const o=a("z-switch");return d(),p(o,{checked:e.checked,"onUpdate:checked":c[0]||(c[0]=t=>e.checked=t)},null,8,["checked"])}var l=s(f,[["render",h],["__file","switchDemo1.vue"]]);export{l as default};

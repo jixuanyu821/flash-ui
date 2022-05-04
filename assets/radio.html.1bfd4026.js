@@ -1,0 +1,1 @@
+const t={key:"v-2c6e2e04",path:"/components/radio.html",title:"Radio \u5355\u9009\u6846",lang:"zh-CN",frontmatter:{title:"Radio \u5355\u9009\u6846"},excerpt:"",headers:[],git:{updatedTime:1651665947e3,contributors:[{name:"jixuanyu",email:"596041986@qq.com",commits:1}]},filePathRelative:"components/radio.md"};export{t as data};

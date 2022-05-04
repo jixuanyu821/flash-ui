@@ -1,0 +1,1 @@
+const e={key:"v-178760cc",path:"/components/menu.html",title:"Menu \u5BFC\u822A\u83DC\u5355",lang:"zh-CN",frontmatter:{title:"Menu \u5BFC\u822A\u83DC\u5355"},excerpt:"",headers:[],git:{updatedTime:1651665947e3,contributors:[{name:"jixuanyu",email:"596041986@qq.com",commits:1}]},filePathRelative:"components/menu.md"};export{e as data};

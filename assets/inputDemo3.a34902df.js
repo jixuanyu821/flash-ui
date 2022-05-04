@@ -1,0 +1,1 @@
+import{_ as s,f as t,I as r,r as p,o as u,q as l}from"./app.e8f792de.js";const f=t({name:"InputDemo3",setup(){return{value:r("")}}});function m(e,o,v,_,c,d){const n=p("z-password");return u(),l(n,{value:e.value,"onUpdate:value":o[0]||(o[0]=a=>e.value=a)},null,8,["value"])}var $=s(f,[["render",m],["__file","inputDemo3.vue"]]);export{$ as default};

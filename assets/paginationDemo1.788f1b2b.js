@@ -1,0 +1,1 @@
+import{_ as o,f as a,I as s,r as c,o as u,c as i,a as p}from"./app.e8f792de.js";const l=a({setup(){return{current1:s(3)}}});function f(e,n,m,_,d,g){const r=c("ZPagination");return u(),i("div",null,[p(r,{current:e.current1,"onUpdate:current":n[0]||(n[0]=t=>e.current1=t),total:50},null,8,["current"])])}var $=o(l,[["render",f],["__file","paginationDemo1.vue"]]);export{$ as default};

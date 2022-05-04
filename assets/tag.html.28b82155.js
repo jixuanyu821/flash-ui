@@ -1,0 +1,1 @@
+const t={key:"v-df550e82",path:"/components/tag.html",title:"Tag \u6807\u7B7E",lang:"zh-CN",frontmatter:{title:"Tag \u6807\u7B7E"},excerpt:"",headers:[],git:{updatedTime:1651665947e3,contributors:[{name:"jixuanyu",email:"596041986@qq.com",commits:1}]},filePathRelative:"components/tag.md"};export{t as data};

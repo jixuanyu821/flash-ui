@@ -1,0 +1,1 @@
+import{_ as c,r as e,o,q as t,w as _,a as n}from"./app.e8f792de.js";const s={};function i(m,p){const a=e("a-time-range-picker"),r=e("a-space");return o(),t(r,{direction:"vertical"},{default:_(()=>[n(a,{bordered:!1})]),_:1})}var d=c(s,[["render",i],["__file","timePickerDemo2.vue"]]);export{d as default};

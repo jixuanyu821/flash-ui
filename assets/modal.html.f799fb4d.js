@@ -1,0 +1,1 @@
+const t={key:"v-d8713ce8",path:"/components/modal.html",title:"Modal \u5BF9\u8BDD\u6846",lang:"zh-CN",frontmatter:{title:"Modal \u5BF9\u8BDD\u6846"},excerpt:"",headers:[],git:{updatedTime:1651665947e3,contributors:[{name:"jixuanyu",email:"596041986@qq.com",commits:1}]},filePathRelative:"components/modal.md"};export{t as data};

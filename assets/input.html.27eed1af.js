@@ -1,0 +1,1 @@
+const t={key:"v-3c8eae8f",path:"/components/input.html",title:"Input \u8F93\u5165\u6846",lang:"zh-CN",frontmatter:{title:"Input \u8F93\u5165\u6846"},excerpt:"",headers:[],git:{updatedTime:1651665947e3,contributors:[{name:"jixuanyu",email:"596041986@qq.com",commits:1}]},filePathRelative:"components/input.md"};export{t as data};

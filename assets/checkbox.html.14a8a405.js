@@ -1,0 +1,1 @@
+const e={key:"v-20ce47b6",path:"/components/checkbox.html",title:"CheckBox \u591A\u9009\u6846",lang:"zh-CN",frontmatter:{title:"CheckBox \u591A\u9009\u6846"},excerpt:"",headers:[],git:{updatedTime:1651665947e3,contributors:[{name:"jixuanyu",email:"596041986@qq.com",commits:1}]},filePathRelative:"components/checkbox.md"};export{e as data};

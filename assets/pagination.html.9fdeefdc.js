@@ -1,0 +1,1 @@
+const t={key:"v-ba046b82",path:"/components/pagination.html",title:"Pagination \u5206\u9875",lang:"zh-CN",frontmatter:{title:"Pagination \u5206\u9875"},excerpt:"",headers:[],git:{updatedTime:1651665947e3,contributors:[{name:"jixuanyu",email:"596041986@qq.com",commits:1}]},filePathRelative:"components/pagination.md"};export{t as data};

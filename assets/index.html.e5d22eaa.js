@@ -1,0 +1,1 @@
+const e={key:"v-1020f180",path:"/components/",title:"Zrar-UI",lang:"zh-CN",frontmatter:{},excerpt:"",headers:[{level:2,title:"\u57FA\u7840\u7EC4\u4EF6",slug:"\u57FA\u7840\u7EC4\u4EF6",children:[]}],git:{updatedTime:1651665947e3,contributors:[{name:"jixuanyu",email:"596041986@qq.com",commits:1}]},filePathRelative:"components/README.md"};export{e as data};

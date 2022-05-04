@@ -1,0 +1,1 @@
+const e={key:"v-106e46c0",path:"/components/divider.html",title:"Divider \u5206\u5272\u7EBF",lang:"zh-CN",frontmatter:{title:"Divider \u5206\u5272\u7EBF"},excerpt:"",headers:[],git:{updatedTime:1651665947e3,contributors:[{name:"jixuanyu",email:"596041986@qq.com",commits:1}]},filePathRelative:"components/divider.md"};export{e as data};

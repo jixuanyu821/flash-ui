@@ -1,0 +1,1 @@
+const t={key:"v-3bb939a7",path:"/components/button.html",title:"Button \u6309\u94AE",lang:"zh-CN",frontmatter:{title:"Button \u6309\u94AE"},excerpt:"",headers:[],git:{updatedTime:1651665947e3,contributors:[{name:"jixuanyu",email:"596041986@qq.com",commits:1}]},filePathRelative:"components/button.md"};export{t as data};

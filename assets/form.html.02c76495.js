@@ -1,0 +1,1 @@
+const t={key:"v-89c9a156",path:"/components/form.html",title:"Form \u8868\u5355",lang:"zh-CN",frontmatter:{title:"Form \u8868\u5355"},excerpt:"",headers:[],git:{updatedTime:1651665947e3,contributors:[{name:"jixuanyu",email:"596041986@qq.com",commits:1}]},filePathRelative:"components/form.md"};export{t as data};

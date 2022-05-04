@@ -1,0 +1,1 @@
+const e={key:"v-512500bb",path:"/components/tree.html",title:"Tree \u6811\u5F62",lang:"zh-CN",frontmatter:{title:"Tree \u6811\u5F62",sidebarDepth:1},excerpt:"",headers:[],git:{updatedTime:1651665947e3,contributors:[{name:"jixuanyu",email:"596041986@qq.com",commits:1}]},filePathRelative:"components/tree.md"};export{e as data};

@@ -1,0 +1,1 @@
+const t={key:"v-c8e11bda",path:"/components/grid.html",title:"Grid \u6805\u683C",lang:"zh-CN",frontmatter:{title:"Grid \u6805\u683C"},excerpt:"",headers:[],git:{updatedTime:1651665947e3,contributors:[{name:"jixuanyu",email:"596041986@qq.com",commits:1}]},filePathRelative:"components/grid.md"};export{t as data};
