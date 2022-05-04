@@ -1,0 +1,39 @@
+:root {
+  --content-width: 1000px;
+  overflow-x: hidden;
+}
+.theme-default-content{
+  h1,h2,h3,h4,h5,h6{
+    font-weight: bold;
+  }
+  ul:not(.code-group__ul),ol,li:not(.code-group__li) {
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+  td code {
+    background-color: #e5e5e5;
+  }
+  p{
+    margin-top: 14px;
+  }
+}
+table.ant-picker-content{
+  margin: 0 auto;
+  width: 100%;
+  table-layout: fixed;
+  display: table;
+  border-collapse: collapse;
+  th, td{
+    padding: 3px 0;
+    height: 30px;
+    border: none;
+    display: table-cell;
+  }
+  
+  tr{
+    border: none;
+    &:nth-child(2n){
+      background-color: transparent;
+    }
+  }
+}

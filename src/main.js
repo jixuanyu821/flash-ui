@@ -1,14 +1,23 @@
-import Vue from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
+import router from './router'
+// import 'ant-design-vue/dist/antd.less'
+import Antd from 'ant-design-vue'
+import * as Icons from '@ant-design/icons-vue'
+import './lib/index.less'
+// eslint-disable-next-line no-unused-vars
+import ZUI from './lib/index'
 
-import flashElementUi from './plugins'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+import dayjs from 'dayjs'
+import 'dayjs/locale/zh-cn'
+import locale from 'ant-design-vue/es/date-picker/locale/zh_CN'
 
-Vue.use(flashElementUi)
-Vue.use(ElementUI)
+const app = createApp(App)
+app.use(router).use(Antd).use(ZUI).mount('#app')
+app.config.globalProperties.locale = locale
+app.config.globalProperties.dayjs = dayjs
 
-Vue.config.productionTip = false
-new Vue({
-  render: h => h(App),
-}).$mount('#app')
+const icons = Icons
+for (const i in icons) {
+  app.component(i, icons[i])
+}

@@ -1,0 +1,43 @@
+.z-tree{
+  width: 250px;
+  .ant-tree-treenode {
+    width: 100%;
+  }
+  .ant-tree-node-content-wrapper{
+    flex: 1;
+    &.ant-tree-node-selected {
+     background-color: #F7F8FB;
+     color: #2956F2;
+    }
+    .ant-tree-title{
+      display: inline-block;
+      width: 100%;
+      span[role="img"] {
+        margin-left: 8px;
+      }
+      input.ant-input{
+        height: 20px;
+      }
+      .z-tree-icon{
+        display: none;
+      }
+      &:hover {
+        .z-tree-icon{
+          display: block;
+        }
+      }
+    }
+  }
+  .ant-tree-switcher {
+    .ant-tree-title {
+      color: #2a2c2c;
+    }
+    .anticon {
+      color: rgb(139, 137, 137) !important;
+      svg {
+        font-size: 16px;
+        margin-top: 6px;
+      }
+    }
+  }
+} 

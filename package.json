@@ -1,35 +1,41 @@
 {
-  "name": "flash-element-ui",
-  "version": "0.4.0",
-  "description": "基于elementUi的补充",
-  "author": "jixuanyu <596041986@qq.com>",
-  "license": "MIT",
+  "name": "z-flash-ui",
+  "version": "0.2.7",
+  "private": false,
   "keywords": [
     "vue",
-    "element-ui",
-    "selectTree"
+    "ui"
   ],
+  "author": "jixuanyu <596041986@qq.com>",
+  "description": "ant-design造轮子",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --name flash-element-ui ./src/plugins/index.js",
-    "lint": "vue-cli-service lint"
+    "dev": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "build:package": "vue-cli-service build --target lib --name z-flash-ui ./src/lib/index.js",
+    "lint": "vue-cli-service lint",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
   },
   "dependencies": {
+    "@ant-design/icons-vue": "^6.0.1",
+    "ant-design-vue": "^3.1.1",
+    "codemirror": "^5.65.0",
     "core-js": "^3.6.5",
-    "element-ui": "^2.13.2",
-    "vue": "^2.6.11"
+    "less": "^2.7.3",
+    "less-loader": "^5.0.0",
+    "vue": "^3.2.28",
+    "vue-router": "^4.0.12"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
+    "@vue/compiler-sfc": "^3.0.0",
+    "@vuepress/plugin-register-components": "^2.0.0-beta.41",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
-    "node-sass": "^4.14.1",
-    "sass-loader": "^7.3.1",
-    "style-loader": "^1.2.1",
-    "eslint-plugin-vue": "^6.2.2",
-    "vue-template-compiler": "^2.6.11"
+    "eslint-plugin-vue": "^7.0.0",
+    "vuepress": "^2.0.0-beta.41"
   },
   "eslintConfig": {
     "root": true,
@@ -37,7 +43,7 @@
       "node": true
     },
     "extends": [
-      "plugin:vue/essential",
+      "plugin:vue/vue3-essential",
       "eslint:recommended"
     ],
     "parserOptions": {
@@ -50,13 +56,13 @@
     "last 2 versions",
     "not dead"
   ],
-  "main": "./dist/flash-element-ui.common.js",
+  "main": "./dist/z-flash-ui.common",
+  "homepage": "https://github.com/jixuanyu821/flash-ui",
   "files": [
-    "dist/*",
-    "src/*",
-    "public/*",
-    "*.json",
+    "dist/",
+    "src/lib/",
+    "public/",
+    ".json",
     "*.js"
-  ],
-  "homepage": "https://github.com/jixuanyu821/flash-ui.git"
+  ]
 }

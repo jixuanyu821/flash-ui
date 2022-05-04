@@ -1,0 +1,53 @@
+.menu-css {
+  border-right: none !important;
+  color: #2A2C2C !important;
+
+  .ant-menu-submenu-arrow {
+    color: #ccc !important;
+  }
+
+  .ant-menu.ant-menu-inline-collapsed {
+    width: 64px !important;
+  }
+
+  .ant-menu-item.ant-menu-item-selected {
+    background-color: #2956F2 !important;
+    color: #fff !important;
+  }
+
+  >.ant-menu-submenu.ant-menu-submenu-selected {
+    >.ant-menu-submenu-title {
+      background-color: #e4eaff !important;
+    }
+  }
+
+  >.ant-menu-item {
+    font-size: 16px !important;
+    height: 64px !important;
+  }
+  >.ant-menu-submenu {
+    >.ant-menu{
+      >.ant-menu-item {
+        height: 48px !important;
+      }
+      >.ant-menu-submenu {
+        >.ant-menu{
+          >.ant-menu-item {
+            height: 48px !important;
+          }
+        }
+        >.ant-menu-submenu-title {
+          height: 48px !important;
+        }
+      }
+    }
+    >.ant-menu-submenu-title {
+      font-size: 16px !important;
+      height: 64px !important;
+    }
+  }
+}
+
+.ant-menu-inline {
+  width: 210px !important;
+}
