@@ -19,7 +19,7 @@
   </div>
 </template>
 <script>
-import ZCheckbox from '@/lib/checkbox/checkbox.vue'
+import ZCheckbox from '@lib/checkbox/checkbox.vue'
 import { defineComponent, ref } from 'vue'
 import * as CodeMirror from 'codemirror/lib/codemirror'
 import 'codemirror/lib/codemirror.css'

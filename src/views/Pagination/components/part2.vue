@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import ZPaginationBg from '@/lib/pagination/pagination-bg.vue'
+import ZPaginationBg from '@lib/pagination/pagination-bg.vue'
 import { defineComponent, ref } from 'vue'
 import * as CodeMirror from 'codemirror/lib/codemirror'
 import 'codemirror/lib/codemirror.css'

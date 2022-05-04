@@ -28,8 +28,8 @@
 </template>
 
 <script>
-import ZTag from '@/lib/tag/tag.vue'
-import ZInput from '@/lib/input/input.vue'
+import ZTag from '@lib/tag/tag.vue'
+import ZInput from '@lib/input/input.vue'
 import { defineComponent, reactive, ref, nextTick, toRefs } from 'vue'
 import * as CodeMirror from 'codemirror/lib/codemirror'
 import 'codemirror/lib/codemirror.css'

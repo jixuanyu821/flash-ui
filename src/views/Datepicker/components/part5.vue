@@ -24,8 +24,8 @@
   </div>
 </template>
 <script>
-import ZDatePicker from '@/lib/date-picker/date-picker'
-import ZRangePicker from '@/lib/date-picker/range-picker'
+import ZDatePicker from '@lib/date-picker/date-picker'
+import ZRangePicker from '@lib/date-picker/range-picker'
 import { defineComponent } from 'vue'
 import * as CodeMirror from 'codemirror/lib/codemirror'
 import 'codemirror/lib/codemirror.css'

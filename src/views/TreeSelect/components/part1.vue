@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import ZTreeSelect from '@/lib/tree-select/tree-select.vue'
+import ZTreeSelect from '@lib/tree-select/tree-select.vue'
 import { defineComponent, ref } from 'vue'
 import * as CodeMirror from 'codemirror/lib/codemirror'
 import 'codemirror/lib/codemirror.css'

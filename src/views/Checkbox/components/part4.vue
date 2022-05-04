@@ -33,7 +33,7 @@
   </div>
 </template>
 <script>
-import ZCheckboxGroup from '@/lib/checkbox/checkbox-group'
+import ZCheckboxGroup from '@lib/checkbox/checkbox-group'
 import { defineComponent, reactive, toRefs } from 'vue'
 import * as CodeMirror from 'codemirror/lib/codemirror'
 import 'codemirror/lib/codemirror.css'

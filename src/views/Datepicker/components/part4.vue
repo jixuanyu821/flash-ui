@@ -21,8 +21,8 @@
 </template>
 <script>
 import dayjs from 'dayjs'
-import ZDatePicker from '@/lib/date-picker/date-picker'
-import ZRangePicker from '@/lib/date-picker/range-picker'
+import ZDatePicker from '@lib/date-picker/date-picker'
+import ZRangePicker from '@lib/date-picker/range-picker'
 import { defineComponent, ref } from 'vue'
 import * as CodeMirror from 'codemirror/lib/codemirror'
 import 'codemirror/lib/codemirror.css'

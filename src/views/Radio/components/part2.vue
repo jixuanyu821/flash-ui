@@ -31,8 +31,8 @@
   </div>
 </template>
 <script>
-import ZRadioGroup from '@/lib/radio/radio-group.vue'
-import ZRadioButton from '@/lib/radio/radio-button.vue'
+import ZRadioGroup from '@lib/radio/radio-group.vue'
+import ZRadioButton from '@lib/radio/radio-button.vue'
 import { defineComponent, ref } from 'vue'
 import * as CodeMirror from 'codemirror/lib/codemirror'
 import 'codemirror/lib/codemirror.css'

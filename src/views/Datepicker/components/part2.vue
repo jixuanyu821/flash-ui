@@ -20,7 +20,7 @@
   </div>
 </template>
 <script>
-import ZRangePicker from '@/lib/date-picker/range-picker'
+import ZRangePicker from '@lib/date-picker/range-picker'
 import locale from 'ant-design-vue/es/date-picker/locale/zh_CN'
 import { defineComponent, ref } from 'vue'
 import * as CodeMirror from 'codemirror/lib/codemirror'

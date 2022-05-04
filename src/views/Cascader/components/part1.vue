@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import ZCascader from '@/lib/cascader/cascader.vue'
+import ZCascader from '@lib/cascader/cascader.vue'
 import { defineComponent, ref } from 'vue'
 import * as CodeMirror from 'codemirror/lib/codemirror'
 import 'codemirror/lib/codemirror.css'

@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import ZPagination from '@/lib/pagination/pagination.vue'
+import ZPagination from '@lib/pagination/pagination.vue'
 import { defineComponent, ref } from 'vue'
 import * as CodeMirror from 'codemirror/lib/codemirror'
 import 'codemirror/lib/codemirror.css'

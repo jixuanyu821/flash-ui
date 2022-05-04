@@ -83,7 +83,7 @@
 </template>
 
 <script>
-import ZButton from '../../lib/button/button.vue'
+import ZButton from '@lib/button/button.vue'
 import { defineComponent } from 'vue'
 // import { defineComponent, reactive } from 'vue'
 // import * as CodeMirror from 'codemirror/lib/codemirror'

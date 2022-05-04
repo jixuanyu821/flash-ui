@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import ZTag from '@/lib/tag/tag.vue'
+import ZTag from '@lib/tag/tag.vue'
 import { defineComponent } from 'vue'
 import * as CodeMirror from 'codemirror/lib/codemirror'
 import 'codemirror/lib/codemirror.css'

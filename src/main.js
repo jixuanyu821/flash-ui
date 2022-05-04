@@ -4,9 +4,9 @@ import router from './router'
 // import 'ant-design-vue/dist/antd.less'
 import Antd from 'ant-design-vue'
 import * as Icons from '@ant-design/icons-vue'
-import './lib/index.less'
+import '../lib/index.less'
 // eslint-disable-next-line no-unused-vars
-import ZUI from './lib/index'
+import ZUI from '../lib/index'
 
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'

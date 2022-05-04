@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import ZTable from '@/lib/table/table.vue'
+import ZTable from '@lib/table/table.vue'
 import { defineComponent } from 'vue'
 import * as CodeMirror from 'codemirror/lib/codemirror'
 import 'codemirror/lib/codemirror.css'

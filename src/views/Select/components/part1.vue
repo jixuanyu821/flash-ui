@@ -51,8 +51,8 @@
 </template>
 
 <script>
-import ZSelect from '@/lib/select/select.vue'
-import ZSelectOption from '@/lib/select/select-option.vue'
+import ZSelect from '@lib/select/select.vue'
+import ZSelectOption from '@lib/select/select-option.vue'
 import { defineComponent, ref } from 'vue'
 import * as CodeMirror from 'codemirror/lib/codemirror'
 import 'codemirror/lib/codemirror.css'

@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import ZSearch from '@/lib/input/search.vue'
+import ZSearch from '@lib/input/search.vue'
 import { defineComponent, ref } from 'vue'
 import * as CodeMirror from 'codemirror/lib/codemirror'
 import 'codemirror/lib/codemirror.css'

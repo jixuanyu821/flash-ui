@@ -23,7 +23,7 @@
 <script>
 // import dayjs from 'dayjs'
 import { defineComponent, ref } from 'vue'
-import ZRangePicker from '@/lib/date-picker/range-picker'
+import ZRangePicker from '@lib/date-picker/range-picker'
 import * as CodeMirror from 'codemirror/lib/codemirror'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/idea.css'

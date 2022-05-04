@@ -24,9 +24,9 @@
 </template>
 
 <script>
-import ZTextarea from '@/lib/input/textarea.vue'
-import ZInput from '@/lib/input/input.vue'
-import ZInputGroup from '@/lib/input/input-group.vue'
+import ZTextarea from '@lib/input/textarea.vue'
+import ZInput from '@lib/input/input.vue'
+import ZInputGroup from '@lib/input/input-group.vue'
 import { defineComponent, ref } from 'vue'
 import * as CodeMirror from 'codemirror/lib/codemirror'
 import 'codemirror/lib/codemirror.css'

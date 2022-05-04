@@ -9,7 +9,7 @@
     <z-checkbox
       v-model:checked="checkAll"
       :indeterminate="indeterminate"
-      @change="onCheckAllChange"
+      @change="(e)=>onCheckAllChange(e)"
     >
       全选
     </z-checkbox>
@@ -22,8 +22,8 @@
   </div>
 </template>
 <script>
-import ZCheckbox from '@/lib/checkbox/checkbox'
-import ZCheckboxGroup from '@/lib/checkbox/checkbox-group'
+import ZCheckbox from '@lib/checkbox/checkbox'
+import ZCheckboxGroup from '@lib/checkbox/checkbox-group'
 import { defineComponent, reactive, toRefs, watch } from 'vue'
 import * as CodeMirror from 'codemirror/lib/codemirror'
 import 'codemirror/lib/codemirror.css'
@@ -109,10 +109,8 @@ export default defineComponent({
   },
   methods: {
     onCheckAllChange(e) {
-      Object.assign(this.state, {
-        checkedList: e.target.checked ? plainOptions : [],
-        indeterminate: false
-      })
+      this.checkedList = e.target.checked ? plainOptions : []
+      this.indeterminate = false
     }
   }
 })

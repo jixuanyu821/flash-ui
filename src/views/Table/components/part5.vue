@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import ZTableSelect from '@/lib/table/table-select.vue'
+import ZTableSelect from '@lib/table/table-select.vue'
 import { defineComponent, ref } from 'vue'
 import * as CodeMirror from 'codemirror/lib/codemirror'
 import 'codemirror/lib/codemirror.css'

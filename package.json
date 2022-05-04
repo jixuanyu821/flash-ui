@@ -11,7 +11,7 @@
   "scripts": {
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "build:package": "vue-cli-service build --target lib --name z-flash-ui ./src/lib/index.js",
+    "build:package": "vue-cli-service build --dest package --target lib --name z-flash-ui ./lib/index.js",
     "lint": "vue-cli-service lint",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs"
@@ -56,12 +56,11 @@
     "last 2 versions",
     "not dead"
   ],
-  "main": "./dist/z-flash-ui.common",
+  "main": "./package/z-flash-ui.common",
   "homepage": "https://github.com/jixuanyu821/flash-ui",
   "files": [
-    "dist/",
-    "src/lib/",
-    "public/",
+    "package/",
+    "lib/",
     ".json",
     "*.js"
   ]

@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import ZPassword from '@/lib/input/password.vue'
+import ZPassword from '@lib/input/password.vue'
 import { defineComponent, ref } from 'vue'
 import * as CodeMirror from 'codemirror/lib/codemirror'
 import 'codemirror/lib/codemirror.css'

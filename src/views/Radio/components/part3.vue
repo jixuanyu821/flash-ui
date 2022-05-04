@@ -20,8 +20,8 @@
   </div>
 </template>
 <script>
-import ZRadio from '@/lib/radio/radio.vue'
-import ZButton from '@/lib/button/button.vue'
+import ZRadio from '@lib/radio/radio.vue'
+import ZButton from '@lib/button/button.vue'
 import { defineComponent, ref } from 'vue'
 import * as CodeMirror from 'codemirror/lib/codemirror'
 import 'codemirror/lib/codemirror.css'
