@@ -19,6 +19,7 @@ const { registerComponentsPlugin } = require('@vuepress/plugin-register-componen
 
 module.exports = {
   lang: 'zh-CN',
+  base: '/flash-ui/',
   head: [
     ['link', { rel: 'icon', href: '/favicon.png' }]
   ],
