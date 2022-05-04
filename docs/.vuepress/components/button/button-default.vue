@@ -33,10 +33,8 @@
   </div>
 </template>
 <script>
-import ZButton from '../../../../src/lib/button/button.vue'
 export default {
   name: 'ButtonDemo1',
-  components: { ZButton }
 }
 </script>
 <style lang="less" scoped>
