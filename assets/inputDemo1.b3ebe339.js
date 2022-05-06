@@ -1,0 +1,1 @@
+import{_ as a,f as u,I as p,r,o as s,q as l}from"./app.8cb14a04.js";const f=u({name:"InputDemo1",setup(){return{value:p("")}}});function i(e,n,m,v,_,c){const o=r("z-input");return s(),l(o,{value:e.value,"onUpdate:value":n[0]||(n[0]=t=>e.value=t)},null,8,["value"])}var $=a(f,[["render",i],["__file","inputDemo1.vue"]]);export{$ as default};
